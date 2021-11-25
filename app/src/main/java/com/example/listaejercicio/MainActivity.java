@@ -15,6 +15,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private JSonSerialicer serialicer;
+
     private RecyclerView lista;
     private LinearLayoutManager linearLayout;
     private Button boton;
@@ -26,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        datos = leerFichero();
 
         lista = findViewById(R.id.listaView);
+        adapter = new Adaptador(datos);
+        lista.setAdapter(adapter);
 
         linearLayout = new LinearLayoutManager(this);
         lista.setLayoutManager(linearLayout);
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         titulo = findViewById(R.id.titulo);
         contenido = findViewById(R.id.contenido);
         boton = findViewById(R.id.boton);
+
+
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,5 +54,23 @@ public class MainActivity extends AppCompatActivity {
                 contenido.setText("");
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        escribirFichero();
+    }
+
+    private List<Dato> leerFichero(){
+        serialicer = new JSonSerialicer("prueba.json",MainActivity.this.getApplicationContext(),datos);//lo mismo que poner this
+
+        return serialicer.load();
+    }
+
+    private void escribirFichero(){
+        serialicer = new JSonSerialicer("prueba.json",MainActivity.this.getApplicationContext(),datos);//lo mismo que poner this
+
+        serialicer.save();
     }
 }
