@@ -1,6 +1,7 @@
 package com.example.listaejercicio;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -71,7 +72,9 @@ public class JSonSerialicer {
                 }
             }
         }
-
+        if(returner==null){
+            return new ArrayList<>();
+        }
         return returner;
     }
 }
