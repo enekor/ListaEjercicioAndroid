@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnClick {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         datos.remove(posicion);
+                        lista.setAdapter(adapter);
                         addDatos();
                     }
                 })
